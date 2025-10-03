@@ -1,0 +1,22 @@
+---
+- name: Basic setup for Red Hat systems
+  hosts: redhat_servers
+  become: true
+
+  tasks:
+
+    - name: Ensure all packages are up to date
+      ansible.builtin.yum:
+        name: "*"
+        state: latest
+
+    - name: Install Apache (httpd)
+      ansible.builtin.yum:
+        name: httpd
+        state: present
+
+    - name: Start and enable Apache service
+      ansible.builtin.service:
+        name: httpd
+        state: started
+        enabled: true
